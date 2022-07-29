@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import useWebSocket from 'react-use-websocket';
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 const socketUrl = 'ws://localhost:8080';
 
 export default function Form(props){

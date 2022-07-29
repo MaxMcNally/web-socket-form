@@ -1,4 +1,6 @@
 const WebSocketServer = require("ws").WebSocketServer
+
+//some dummy forms that we would normally pull from a database
 const forms = {
     "1" : {},
     "2" : {}
@@ -29,7 +31,6 @@ const wss = new WebSocketServer({
 });
 
 wss.on("connection", (ws)=>{
-    console.log("Connection")
     ws.on('message', message => {
         console.log(`Received message => ${message}`)
         message = JSON.parse(message)
@@ -52,7 +53,6 @@ wss.on("connection", (ws)=>{
                             form: forms[formID]
                         })
                     }
-                    
                     const currentUsers = rooms.get(formID).users
                     if(!currentUsers.find((u)=>{
                         return u.id === user
@@ -124,7 +124,7 @@ wss.on("connection", (ws)=>{
 wss.notifyRoom = function(roomID,msg) {
     const users = rooms.get(roomID).users
     users.forEach((user)=>{ 
-        console.log("notifying user", user.id)
+        console.log("Sending message to ", user.id)
         console.log(msg)
         user.ws.send(msg)
     }) 
